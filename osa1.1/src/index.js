@@ -9,6 +9,14 @@ const Otsikko = (props) => {
   )
 }
 
+const Sisalto = () => {
+    return (
+    <div>
+    <p>Sisalto</p>
+    </div>
+  )
+}
+
 const App = () => {
   const kurssi = 'Half Stack -sovelluskehitys'
   const osa1 = 'Reactin perusteet'
@@ -21,6 +29,7 @@ const App = () => {
   return (
     <div>
       <Otsikko kurssi={kurssi}/>
+      <Sisalto />
       <p>{osa1} {tehtavia1}</p>
       <p>{osa2} {tehtavia2}</p>
       <p>{osa3} {tehtavia3}</p>
