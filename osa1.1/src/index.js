@@ -12,9 +12,17 @@ const Otsikko = (props) => {
 const Sisalto = (props) => {
     return (
     <div>
-    <p>{props.osa1} {props.tehtavia1}</p>
-    <p>{props.osa2} {props.tehtavia2}</p>
-    <p>{props.osa3} {props.tehtavia3}</p>
+      <p>{props.osa1} {props.tehtavia1}</p>
+      <p>{props.osa2} {props.tehtavia2}</p>
+      <p>{props.osa3} {props.tehtavia3}</p>
+    </div>
+  )
+}
+
+const Yhteensa = (props) => {
+  return(
+    <div>
+    <p>yhteensä {props.tehtavia1 + props.tehtavia2 + props.tehtavia3} tehtävää</p>
     </div>
   )
 }
