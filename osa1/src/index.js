@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 const Hello = (props) => {
   return (
     <div>
-      <p>Hello world {props.name}</p>
+      <p>Hello {props.name}, you are {props.age} years old</p>
     </div>
   )
 }
@@ -13,8 +13,8 @@ const App = () => {
   return (
     <div>
       <h1>Greetings</h1>
-      <Hello name="Arto" />
-      <Hello name="Pekka"/>
+      <Hello name="Arto" age={26 + 10} />
+      <Hello name="Pekka" age={12} />
     </div>
   )
 }
