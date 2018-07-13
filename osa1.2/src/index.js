@@ -50,7 +50,7 @@ const App = () => {
       <Otsikko kurssi={kurssi}/>
       <Sisalto />
       <Sisalto osa1={osa1} tehtava1={tehtavia1} osa2={osa2} tehtava2={tehtavia2} osa3={osa3} tehtava3={tehtavia3} />
-      <p>yhteensä {tehtavia1 + tehtavia2 + tehtavia3} tehtävää</p>
+      <Yhteensa tehtavia1={tehtavia1} tehtavia2={tehtavia2} tehtavia3={tehtavia3} />
     </div>
   )
 }
