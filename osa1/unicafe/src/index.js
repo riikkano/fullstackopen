@@ -2,6 +2,38 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
+const Button = (props) => {
+    return (
+    <div>
+    <button onClick={props.instance}>
+    {props.name}
+    </button>
+    </div>
+  )
+}
+
+const Statistic = (props) => {
+  return (
+    <div>
+    {props.name} {props.value}
+    </div>
+  )
+}
+
+const Statistics = (props) => {
+  const x = props.list.state
+  return (
+    <div>
+    <h2>Statistiikka</h2>
+    <Statistic name="hyvä" value={x.hyva}/>
+    <Statistic name="neutraali" value={x.neutraali}/>
+    <Statistic name="huono" value={x.huono}/>
+    <Statistic name="keskiarvo" value={props.keskiarvo}/>
+    <Statistic name="positiivisia" value={props.positiivisia}/>
+    </div>
+  )
+}
+
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -10,7 +42,6 @@ class App extends React.Component {
       neutraali: 0,
       huono: 0,
       kaikki: [],
-      positiivisia: 0
     }
   }
 
@@ -50,9 +81,10 @@ class App extends React.Component {
       })
         ka = sum/len
         console.log("Historia:", historia())
-        this.asetaArvoon(keskiarvo, ka)
         return(ka)
     }
+
+
     const positiivisia = () => {
       let pos = 0
       let res = 0
@@ -62,28 +94,16 @@ class App extends React.Component {
         }
       })
       res = pos/len*100
-      this.asetaArvoon(positiivisia, res)
-      return(res)
+      return(res+" %")
     }
 
     return (
       <div>
       <h2>Anna palaute</h2>
-      <button onClick={this.kasvataHyva.bind(this)}>
-      hyvä
-      </button>
-      <button onClick={this.kasvataNeutraali.bind(this)}>
-      neutraali
-      </button>
-      <button onClick={this.kasvataHuono.bind(this)}>
-      huono
-      </button>
-      <h2>Statistiikka</h2>
-      <div>hyvä {this.state.hyva}</div>
-      <div>neutraali {this.state.neutraali}</div>
-      <div>huono {this.state.huono}</div>
-      <div>keskiarvo {keskiarvo()}</div>
-      <div>positiivisia {positiivisia()} %</div>
+      <Button name="hyvä" instance={this.kasvataHyva.bind(this)}/>
+      <Button name="neutraali" instance={this.kasvataNeutraali.bind(this)}/>
+      <Button name="huono" instance={this.kasvataHuono.bind(this)}/>
+      <Statistics list={this} keskiarvo={keskiarvo()} positiivisia={positiivisia()}/>
       </div>
     )
   }
