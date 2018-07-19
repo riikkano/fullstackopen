@@ -45,34 +45,29 @@ class App extends React.Component {
     }
   }
 
-  kasvataHyva() {
-    this.setState({ hyva: this.state.hyva +1,
-    kaikki: this.state.kaikki.concat(1)
-    })
-  }
-
-  kasvataNeutraali() {
-    this.setState({ neutraali: this.state.neutraali +1,
-    kaikki: this.state.kaikki.concat(0)
-    })
-  }
-
-  kasvataHuono() {
-    this.setState({ huono: this.state.huono +1,
-    kaikki: this.state.kaikki.concat(-1)
-   })
-  }
-
-  asetaArvoon = (x, arvo) => {
+  asetaArvoon(o, arvo) {
     return () => {
-      this.setState({ x: arvo })
-    }
+      this.setState({ [o] : this.state[o] +1,
+      kaikki: this.state.kaikki.concat(arvo)})
+  }
   }
 
   render() {
     const historia = () => this.state.kaikki.join(' ')
     let ka = 0
     let len = this.state.kaikki.length
+    if (len===0){
+      return (
+        <div>
+        <h2>Anna palaute</h2>
+        <Button name="hyvä" instance={this.asetaArvoon('hyva', 1)}/>
+        <Button name="neutraali" instance={this.asetaArvoon('neutraali', 0)}/>
+        <Button name="huono" instance={this.asetaArvoon('huono', -1)}/>
+        <h2>Statistiikka</h2>
+        <p>ei yhtään palautetta annettu</p>
+        </div>
+      )
+    }
 
     const keskiarvo = () => {
       let sum = 0
@@ -100,9 +95,9 @@ class App extends React.Component {
     return (
       <div>
       <h2>Anna palaute</h2>
-      <Button name="hyvä" instance={this.kasvataHyva.bind(this)}/>
-      <Button name="neutraali" instance={this.kasvataNeutraali.bind(this)}/>
-      <Button name="huono" instance={this.kasvataHuono.bind(this)}/>
+      <Button name="hyvä" instance={this.asetaArvoon('hyva', 1)}/>
+      <Button name="neutraali" instance={this.asetaArvoon('neutraali', 0)}/>
+      <Button name="huono" instance={this.asetaArvoon('huono', -1)}/>
       <Statistics list={this} keskiarvo={keskiarvo()} positiivisia={positiivisia()}/>
       </div>
     )
