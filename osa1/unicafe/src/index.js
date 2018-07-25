@@ -4,33 +4,33 @@ import './index.css';
 
 const Button = (props) => {
     return (
-    <div>
     <button onClick={props.instance}>
     {props.name}
     </button>
-    </div>
   )
 }
 
 const Statistic = (props) => {
   return (
-    <div>
-    {props.name} {props.value}
-    </div>
+    <tr>
+      <td>{props.name}</td>
+      <td>{props.value}</td>
+    </tr>
   )
 }
 
 const Statistics = (props) => {
   const x = props.list.state
   return (
-    <div>
-    <h2>Statistiikka</h2>
-    <Statistic name="hyvä" value={x.hyva}/>
-    <Statistic name="neutraali" value={x.neutraali}/>
-    <Statistic name="huono" value={x.huono}/>
-    <Statistic name="keskiarvo" value={props.keskiarvo}/>
-    <Statistic name="positiivisia" value={props.positiivisia}/>
-    </div>
+    <table>
+      <tbody>
+        <Statistic name="hyvä" value={x.hyva}/>
+        <Statistic name="neutraali" value={x.neutraali}/>
+        <Statistic name="huono" value={x.huono}/>
+        <Statistic name="keskiarvo" value={props.keskiarvo}/>
+        <Statistic name="positiivisia" value={props.positiivisia}/>
+      </tbody>
+    </table>
   )
 }
 
@@ -95,9 +95,12 @@ class App extends React.Component {
     return (
       <div>
       <h2>Anna palaute</h2>
+      <div>
       <Button name="hyvä" instance={this.asetaArvoon('hyva', 1)}/>
       <Button name="neutraali" instance={this.asetaArvoon('neutraali', 0)}/>
       <Button name="huono" instance={this.asetaArvoon('huono', -1)}/>
+      </div>
+      <h2>Statistiikka</h2>
       <Statistics list={this} keskiarvo={keskiarvo()} positiivisia={positiivisia()}/>
       </div>
     )
