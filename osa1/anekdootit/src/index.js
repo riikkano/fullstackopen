@@ -9,6 +9,15 @@ const Button = (props) => {
   )
 }
 
+const Favourites = (props) => {
+  return (
+    <div>
+    <p>{props.funktio}</p>
+    <p>has {props.aanet} votes</p>
+    </div>
+  )
+}
+
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -36,8 +45,17 @@ class App extends React.Component {
     }
   }
 
+  popularAnecdote(pisteet) {
+    console.log("Click")
+    return () => {
+      pisteet.forEach(function(item, index, array) {
+      console.log(item, index);
+      });
+    }
+  }
+
   arvoAnekdootti(len) {
-    console.log("Listan pituus", len)
+    console.log("Anekdootteja:", len)
     return () => {
     this.setState({ selected : [Math.floor((Math.random() * (len-1)) )] })
     }
@@ -45,14 +63,30 @@ class App extends React.Component {
 
   render() {
     const len = this.props.anecdotes.length
+
+    const votes = () => {
+      const pisteet = this.state.pisteet
+      var max_of_pisteet = Math.max.apply(Math, pisteet)
+      console.log("Parhaat pisteet:", max_of_pisteet)
+      return (max_of_pisteet)
+    }
+
+    const bestAnecdote= () => {
+      const pisteet = this.state.pisteet
+      var max_of_pisteet = Math.max.apply(Math, pisteet)
+      var pos = pisteet.indexOf(max_of_pisteet)
+      console.log("Parhaat pisteet ja anekdootti:", max_of_pisteet, this.props.anecdotes[pos])
+      return (this.props.anecdotes[pos])
+    }
+
     return (
       <div>
         {this.props.anecdotes[this.state.selected]}
         <br/>
         <Button name="next anecdote" function={this.arvoAnekdootti(len)}/>
         <Button name="vote" function={this.aanesta(this.state.pisteet)} />
-        {console.log("Pisteet kopion jälkeen:", this.state.pisteet)}
-
+        <h2>anecdote with most votes</h2>
+        <Favourites funktio={bestAnecdote()} aanet={votes()} />
       </div>
     )
   }
