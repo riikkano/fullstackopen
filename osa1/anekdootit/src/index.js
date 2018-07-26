@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom'
 
 const Button = (props) => {
   return (
-    <button onClick={props.seuraavaAnekdootti}>
-	   next anecdote
+    <button onClick={props.function}>
+	   {props.name}
     </button>
   )
 }
@@ -13,7 +13,26 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      selected: 0
+      selected: 0,
+      pisteet: [0, 0, 0, 0, 0, 0]
+    }
+  }
+
+  tulosta(teksti) {
+    return () => {
+    console.log(teksti)
+    }
+  }
+
+  aanesta(pisteet) {
+    return () => {
+    console.log("Anekdootti:", this.state.selected)
+    console.log("Pisteet:", this.state.pisteet)
+    const kopio = [...pisteet]
+    console.log("Kopioidun taulukon elementti, ennen lisäystä:", kopio[this.state.selected])
+    kopio[this.state.selected] += 1
+    console.log("Pisteet (kopio):", kopio)
+    this.setState({pisteet:kopio})
     }
   }
 
@@ -30,8 +49,10 @@ class App extends React.Component {
       <div>
         {this.props.anecdotes[this.state.selected]}
         <br/>
-        <Button seuraavaAnekdootti={this.arvoAnekdootti(len)}/>
-        {console.log("Arvottu anekdootti:", this.state.selected)}
+        <Button name="next anecdote" function={this.arvoAnekdootti(len)}/>
+        <Button name="vote" function={this.aanesta(this.state.pisteet)} />
+        {console.log("Pisteet kopion jälkeen:", this.state.pisteet)}
+
       </div>
     )
   }
