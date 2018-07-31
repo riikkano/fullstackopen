@@ -1,0 +1,32 @@
+title Käyttäjä lisää muistiinpanon sivulle
+
+käyttäjä->selain:
+note left of selain
+Käyttäjä kirjoittaa lomakkeen kenttään muistiinpanonsa ja lähettää sen 
+end note
+selain->palvelin: POST https://fullstack-exampleapp.herokuapp.com/new_note
+note right of selain
+ Selain lähettää uuden muistiinpanon palvelimelle    
+end note
+palvelin->selain: status 302, uudelleenohjauspyyntö /notes
+note right of selain
+  Selain lataa sivun uudelleen
+end note
+selain->palvelin: GET /notes
+palvelin->selain: status 200, sivun HTML-koodi
+selain->palvelin: GET /main.css
+palvelin->selain: status 200, tyylitiedosto
+selain->palvelin: GET /main.js
+palvelin->selain: status 200, Javascript-tiedosto 
+note right of selain
+  Suoritetaan scriptin sisältämä koodi selaimessa.     
+end note
+selain->palvelin: GET /data.json
+note right of selain
+  Muistiinpanot ladataan palvelimelta   
+end note
+palvelin->selain: status 200, JSON-muotoinen data
+
+note left of selain
+  Käyttäjän lähettämä muistiinpano näkyy listassa. 
+end note
