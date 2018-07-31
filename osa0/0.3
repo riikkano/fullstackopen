@@ -1,0 +1,26 @@
+title Käyttäjä navigoi muistiinpanojen sivulle
+
+käyttäjä->selain:
+note left of selain
+Käyttäjä kirjoittaa osoiteriville:
+fullstack-exampleapp.herokuapp.com
+end note
+selain->palvelin: GET https://fullstack-exampleapp.herokuapp.com/notes
+note left of palvelin
+  Muodostetaan HTML missä otsikko ja lomake
+end note
+palvelin->selain: status 200, HTML-koodi
+selain->palvelin: GET /main.css
+palvelin->selain: status 200, tyylitiedosto
+selain->palvelin: GET /main.js
+palvelin->selain: status 200, Javascript-tiedosto 
+note right of selain
+  Suoritetaan scriptin sisältämä koodi. 
+end note
+selain->palvelin: GET /data.json
+palvelin->selain: status 200, JSON-muotoinen data
+
+note left of selain
+  Selain näyttää käyttäjälle palvelimen palauttaman HTML:n, 
+    jossa scriptin luoma listaus muistiinpanoista. 
+end note
