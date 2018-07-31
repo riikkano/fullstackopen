@@ -1,0 +1,15 @@
+title Käyttäjä lisää muistiinpanon sivulle
+
+käyttäjä->selain:
+note left of selain
+Käyttäjä kirjoittaa lomakkeen kenttään muistiinpanonsa ja lähettää sen 
+end note
+selain->palvelin: POST /new_note_spa
+note right of selain
+ Selain lähettää uuden muistiinpanon palvelimelle    
+end note
+palvelin->selain: status 200, JSON-muotoinen data
+
+note left of selain
+  Käyttäjän lähettämä muistiinpano näkyy listassa. 
+end note
