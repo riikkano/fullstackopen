@@ -19,15 +19,22 @@ class App extends React.Component {
     const personObject = {
       name: this.state.newPerson
     }
+    const found = this.state.persons.find(person => person.name === personObject.name)
+    if (found !== undefined){
+      alert(personObject.name+ " on jo listassa!")
+      console.log("Henkilö on jo luettelossa! Nimeä ei tallennettu.")
+    } else {
+      const persons = this.state.persons.concat(personObject)
+      console.log("Henkilö lisätty")
+      this.setState({
+        persons,
+        newPerson: ''
+        })
+      }
+    }
 
-    const persons = this.state.persons.concat(personObject)
-    console.log(persons)
 
-this.setState({
-  persons,
-  newPerson: ''
-})
-}
+
 
 handlePersonChange = (event) => {
   console.log(event.target.value)
