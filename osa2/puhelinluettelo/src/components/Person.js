@@ -1,8 +1,9 @@
 import React from 'react'
 
 const Person = (props) => {
+  const p = props.person
   return (
-    <li>{props.name}</li>
+    <li>{p.name} {p.number}</li>
   )
 }
 
