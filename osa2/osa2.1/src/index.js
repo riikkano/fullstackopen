@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom'
 import './index.css';
 import Kurssi from './components/Kurssi.js'
 
-
-
 const Kurssit = (props) => {
   return (
     <div>
