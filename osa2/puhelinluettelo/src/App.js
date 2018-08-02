@@ -6,10 +6,15 @@ class App extends React.Component {
     super(props)
     this.state = {
       persons: [
-        { name: 'Arto Hellas' ,
-        number: '040044450203' }
+        { name: 'Arto Hellas', number: '040-123456' },
+        { name: 'Martti Tienari', number: '040-123456' },
+        { name: 'Arto Järvinen', number: '040-123456' },
+        { name: 'Lea Kutvonen', number: '040-123456' }
       ],
-      newPerson: ''
+      newName: '',
+      newNumber: '',
+      filter: '',
+      showAll: false
     }
   }
 
@@ -45,16 +50,34 @@ handleNumberChange = (event) => {
   this.setState({newNumber: event.target.value })
 }
 
+handleSearch = (event) => {
+  console.log("Search handler:", event.target.value)
+  this.setState({filter: event.target.value })
+}
+
+
   render() {
+    const personsToShow =
+    this.state.showAll ?
+    this.state.persons :
+    this.state.persons.filter(person =>  person.name.toLowerCase().indexOf(this.state.filter.toLowerCase()) > -1)
+    console.log("Filter:", this.state.filter, "Persons:", this.state.persons.filter(person =>  this.state.filter.toLowerCase().indexOf(person.name.toLowerCase()) > -1))
+    console.log("Persons to show:", personsToShow)
     return (
       <div>
-        <h2>Puhelinluettelo</h2>
+        <h1>Puhelinluettelo</h1>
         <form onSubmit={this.addPerson}>
           <div>
-            nimi: <input value={this.state.newPerson.name} onChange={this.handleNameChange}/>
+            rajaa näytettäviä: <input value={this.state.filter} onChange={this.handleSearch}/>
+          </div>
+          </form>
+        <h2>Lisää uusi</h2>
+        <form onSubmit={this.addPerson}>
+          <div>
+            nimi: <input value={this.state.newName} onChange={this.handleNameChange}/>
           </div>
           <div>
-            numero: <input value={this.state.newPerson.number} onChange={this.handleNumberChange}/>
+            numero: <input value={this.state.newNumber} onChange={this.handleNumberChange}/>
           </div>
           <div>
             <button type="submit">lisää</button>
@@ -62,7 +85,7 @@ handleNumberChange = (event) => {
         </form>
         <h2>Numerot</h2>
         <ul>
-         {this.state.persons.map(person => <Person key={person.name} person={person}/>)}
+         {personsToShow.map(person => <Person key={person.name} person={person}/>)}
        </ul>
       </div>
     )
