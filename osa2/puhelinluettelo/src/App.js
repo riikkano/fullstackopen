@@ -2,17 +2,13 @@ import React from 'react';
 import Person from './components/Person.js'
 import FilterForm from './components/FilterForm.js'
 import NewPersonForm from './components/NewPersonForm.js'
+import axios from 'axios'
 
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      persons: [
-        { name: 'Arto Hellas', number: '040-123456' },
-        { name: 'Martti Tienari', number: '040-123456' },
-        { name: 'Arto Järvinen', number: '040-123456' },
-        { name: 'Lea Kutvonen', number: '040-123456' }
-      ],
+      persons: [],
       newName: '',
       newNumber: '',
       filter: '',
@@ -55,6 +51,16 @@ handleNumberChange = (event) => {
 handleSearch = (event) => {
   console.log("Search handler:", event.target.value)
   this.setState({filter: event.target.value })
+}
+
+componentDidMount() {
+  console.log('did mount')
+  axios
+    .get('http://localhost:3001/persons')
+    .then(response => {
+      console.log('promise fulfilled')
+      this.setState({ persons: response.data })
+    })
 }
 
   render() {
