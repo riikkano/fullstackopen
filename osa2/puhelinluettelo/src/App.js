@@ -31,9 +31,9 @@ class App extends React.Component {
     } else {
       const persons = this.state.persons.concat(personObject)
       console.log("Henkilö lisätty")
-      this.setState({
-        persons,
-        newPerson: ''
+      axios.post('http://localhost:3001/persons', personObject)
+        .then(response => {
+          console.log(response)
         })
       }
     }
